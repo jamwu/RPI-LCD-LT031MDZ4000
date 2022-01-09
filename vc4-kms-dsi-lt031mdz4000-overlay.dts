@@ -21,8 +21,7 @@
 				status        = "okay";
 				reg           = <0>;
 				reset-gpios   = <&gpio 26 0>;   // LCD RST
-				bl-en-gpios  = <&gpio 19 0>;    // LCD Enable
-				dcdc-en-gpios = <&gpio 5 0>;    // LCD DC-DC Enable
+				bl-en-gpios  = <&gpio 19 0>;    // LCD backlight enable
 				port {
 					panel_dsi_port: endpoint {
 						remote-endpoint = <&dsi_out_port>;
@@ -36,9 +35,9 @@
 		target = <&gpio>;
 		__overlay__ {
 			lt031mdz4000_pins: lt031mdz4000_pins {
-				brcm,pins = <19 5 26>;
-				brcm,function = <1 1 1>; // out
-				brcm,pull = <0 0 0>; // off
+				brcm,pins = <19 26>;
+				brcm,function = <1 1>; // out
+				brcm,pull = <0 0>; // off
 			};
 		};
 
@@ -48,10 +47,8 @@
 		reset = <&lt031mdz4000_pins>,"brcm,pins:8",
 			<&lt031mdz4000>,"reset-gpios:4";
 
-		enable = <&lt031mdz4000_pins>,"brcm,pins:0",
-			<&lt031mdz4000>,"enable-gpios:4";
+		bl-en = <&lt031mdz4000_pins>,"brcm,pins:0",
+			<&lt031mdz4000>,"bl-en-gpios:4";
 
-		dcdc-en = <&lt031mdz4000_pins>,"brcm,pins:4",
-			<&lt031mdz4000>,"dcdc-en-gpios:4";
 	};
 };
